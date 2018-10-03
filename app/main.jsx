@@ -13,7 +13,7 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 
 import store from './store'
-import SubmitProductForm from './components/SubmitProblemForm'
+import SubmitProductForm from './components/SubmitProductForm'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
