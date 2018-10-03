@@ -1,8 +1,10 @@
-export const submitProduct = (id) => {
+import axios from 'axios'
+
+export const submitProduct = (productName, shortDescription, longDescription, founderInfo) => {
   return (dispatch) => {
-      axios.post(`/api/products`)
+      axios.post(`/api/products`, {productName, shortDescription, longDescription, founderInfo})
           .then((result) => {
-              //handle response
+              console.log("not sure what you want with result", result)
           })
   }
 }
