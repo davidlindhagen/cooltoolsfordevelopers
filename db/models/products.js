@@ -7,7 +7,8 @@ module.exports = db => db.define('products', {
   description: TEXT,
   shortDescription: TEXT,
   informationOnFounders: TEXT,
-  pictureUrl: TEXT
+  pictureUrl: TEXT,
+  status: STRING
 })
 
 module.exports.associations = () => {}
