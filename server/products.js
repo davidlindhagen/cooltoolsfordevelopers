@@ -10,7 +10,8 @@ const Product = db.model('products')
         name: req.body.productName,
         description: req.body.longDescription,
         informationOnFounders: req.body.founderInfo,
-        shortDescription: req.body.shortDescription
+        shortDescription: req.body.shortDescription,
+        status: "review"
       })
       .then((product) => {
         res.send(product)
