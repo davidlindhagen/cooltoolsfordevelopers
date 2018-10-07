@@ -23,3 +23,12 @@ const Product = db.model('products')
       res.end()
     }
   })
+  .get('/admin', (req, res, next)=>{
+    Product.findAll({
+      where:{
+        status:"review"
+      }
+    }).then((inReviewProducts)=>{
+      res.send(inReviewProducts)
+    })
+  })
