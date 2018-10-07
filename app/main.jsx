@@ -14,6 +14,7 @@ import {connect, Provider} from 'react-redux'
 
 import store from './store'
 import SubmitProductForm from './components/SubmitProductForm'
+import Admin from './components/Admin'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -32,6 +33,7 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}>
         <Route path="/submitproduct" component={SubmitProductForm} />
+        <Route path="/admin" component={Admin} />
       </Route>
     </Router>
   </Provider>,
