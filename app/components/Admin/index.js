@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {getInReviewProducts} from '../../reducers/products'
+import {changeProductStatus} from '../../reducers/products'
 import {connect} from 'react-redux'
 
 class Admin extends Component {
@@ -18,10 +19,12 @@ class Admin extends Component {
         <h1>Admin</h1>
         {this.props.adminProducts.map((product) => {
           return (
-            <div>
+            <div key={product.id}>
               <h3>{product.name}</h3>
               <p>{product.description}</p>
               <h6>{product.informationOnFounders}</h6>
+              <button onClick={() => this.props.changeProductStatus(product.id, 'accepted')}>Accept</button>
+              <button onClick={() => this.props.changeProductStatus(product.id, 'rejected')}>Reject</button>
             </div>
           )
         })}
@@ -37,7 +40,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  getInReviewProducts
+  getInReviewProducts,
+  changeProductStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin)
