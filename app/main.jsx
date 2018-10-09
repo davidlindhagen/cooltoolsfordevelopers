@@ -15,6 +15,7 @@ import {connect, Provider} from 'react-redux'
 import store from './store'
 import SubmitProductForm from './components/SubmitProductForm'
 import Admin from './components/Admin'
+import AddToEmailList from './components/AddToEmailList'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -34,6 +35,7 @@ render(
       <Route path="/" component={ExampleApp}>
         <Route path="/submitproduct" component={SubmitProductForm} />
         <Route path="/admin" component={Admin} />
+        <Route path="/addtoemaillist" component={AddToEmailList} />
       </Route>
     </Router>
   </Provider>,
