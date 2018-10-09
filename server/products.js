@@ -32,3 +32,18 @@ const Product = db.model('products')
       res.send(inReviewProducts)
     })
   })
+  .put('/', (req, res, next)=>{
+    const productId = req.body.productId
+    const status = req.body.status
+
+    Product.update({
+      status
+    }, {
+      where: {
+        id: productId
+      }
+    })
+      .then((resp => {
+        res.json(resp)
+      }))
+  })
