@@ -46,4 +46,18 @@ export const getInReviewProducts = () => {
     }
   }
 
+export const changeProductStatus = (productId, status) => {
+    return (dispatch) => {
+        axios.put(`/api/products`, {productId, status})
+            .then((result) => {
+                if (result.data == 'error'){
+
+                }
+                else{
+                   dispatch(getInReviewProducts()) 
+                }
+            })
+    }
+}
+
 export default reducer
