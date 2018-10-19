@@ -12,28 +12,55 @@ class Admin extends Component {
     this.props.getInReviewProducts()
   }
 
+  renderInReview(){
+    return this.props.adminProducts.map((product)=>{
+      if(product.status == "review"){
+        return(
+          <div key={product.id}>
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <h6>{product.informationOnFounders}</h6>
+            <button onClick={() => this.props.changeProductStatus(product.id, 'accepted')}>Accept</button>
+            <button onClick={() => this.props.changeProductStatus(product.id, 'rejected')}>Reject</button>
+          </div>
+        )
+      }
+    })
+  }
+
+  renderAccepted(){
+    return this.props.adminProducts.map((product)=>{
+      if(product.status == "accepted"){
+        return(
+          <div key={product.id}>
+            <h3>{product.name}</h3>
+          </div>
+        )
+      }
+    })
+  }
+
+  publish(){
+    this.props.adminProducts.forEach((product)=>{
+      if(product.status == "accepted"){
+        this.props.changeProductStatus(product.id, 'published')
+      }
+    })
+  }
 
   render() {
     return (
       <div>
         <h1>Admin</h1>
-        {this.props.adminProducts.map((product) => {
-          return (
-            <div key={product.id}>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <h6>{product.informationOnFounders}</h6>
-              <button onClick={() => this.props.changeProductStatus(product.id, 'accepted')}>Accept</button>
-              <button onClick={() => this.props.changeProductStatus(product.id, 'rejected')}>Reject</button>
-            </div>
-          )
-        })}
+        {this.renderInReview()}
+        <h3>Waiting To Be Published</h3>
+        {this.renderAccepted()}
+        <button onClick={this.publish}>Publish</button>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
-  console.log("state", state)
   return {
     adminProducts: state.products.inReview
   }

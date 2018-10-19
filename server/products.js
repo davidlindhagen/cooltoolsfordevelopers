@@ -26,7 +26,9 @@ const Product = db.model('products')
   .get('/admin', (req, res, next)=>{
     Product.findAll({
       where:{
-        status:"review"
+        status:{
+          [Op.or]: ["review", "accepted"]
+        }
       }
     }).then((inReviewProducts)=>{
       res.send(inReviewProducts)
