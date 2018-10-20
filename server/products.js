@@ -2,6 +2,7 @@
 
 const db = require('APP/db')
 const Product = db.model('products')
+var Sequelize = require('sequelize');
 
   module.exports = require('express').Router()
   .post('/', (req, res, next) => {
@@ -24,6 +25,7 @@ const Product = db.model('products')
     }
   })
   .get('/admin', (req, res, next)=>{
+    const Op = Sequelize.Op
     Product.findAll({
       where:{
         status:{
