@@ -1,8 +1,11 @@
 'use strict'
 
 const db = require('APP/db')
+const Sequelize = require('sequelize')
 const Product = db.model('products')
-var Sequelize = require('sequelize');
+const Batch = db.model('batch')
+console.log("batch", Batch)
+console.log("product", Product)
 
   module.exports = require('express').Router()
   .post('/', (req, res, next) => {
@@ -12,18 +15,81 @@ var Sequelize = require('sequelize');
         description: req.body.longDescription,
         informationOnFounders: req.body.founderInfo,
         shortDescription: req.body.shortDescription,
+        link: req.body.link,
         status: "review"
       })
       .then((product) => {
         res.send(product)
+      }).catch(()=>{
+        res.send('error')
       })
-      .catch(next)
     }
     else{
-      console.log("not long")
       res.end()
     }
   })
+
+  .get('/featured', (req, res, next)=>{
+    let currentBatch;
+    console.log("Badtch", Batch)
+    Batch.findOne().then((batch)=>{
+      Product.findAll({
+        where:{
+          status: 'accepted',
+          batch: batch.batch 
+        }
+      })
+      .then((products)=>{
+        res.send(products)
+      })
+    })
+    .catch(()=>{
+      res.send('error')
+    })
+  })
+
+  .get('/recent', (req, res, next)=>{
+    let currentBatch;
+    console.log("Badtch", Batch)
+    Batch.findOne()
+    .then((batch)=>{
+      Product.findAll({
+        where:{
+          status: 'rejected',
+          batch: batch.batch 
+        }
+      })
+      .then((products)=>{
+        res.send(products)
+      })
+    })
+    .catch(()=>{
+      res.send('error')
+    })
+  })
+
+  .get('/past', (req, res, next)=>{
+    let currentBatch;
+    console.log("Badtch", Batch)
+    Batch.findOne()
+    .then((batch)=>{
+      Product.findAll({
+        where:{
+          status: 'accepted',
+          batch: {
+            [Op.ne]: batch.batch
+          }
+        }
+      })
+      .then((products)=>{
+        res.send(products)
+      })
+    })
+    .catch(()=>{
+      res.send('error')
+    })
+  })
+
   .get('/admin', (req, res, next)=>{
     const Op = Sequelize.Op
     Product.findAll({
@@ -35,19 +101,28 @@ var Sequelize = require('sequelize');
     }).then((inReviewProducts)=>{
       res.send(inReviewProducts)
     })
-  })
-  .put('/', (req, res, next)=>{
-    const productId = req.body.productId
-    const status = req.body.status
-
-    Product.update({
-      status
-    }, {
-      where: {
-        id: productId
-      }
+    .catch(()=>{
+      res.send('error')
     })
-      .then((resp => {
-        res.json(resp)
-      }))
+  })
+
+  .put('/', (req, res, next)=>{
+    const productId = req.body.productId;
+    const status = req.body.status;
+    let batchNumber;
+    Batch.findOrCreate()
+    .then(btchNum)=>{
+      batchNumber = btchNum
+      Product.update({
+        status,
+        batch: batchNumber
+      }, {
+        where: {
+          id: productId
+        }
+      })
+        .then((resp => {
+          res.json(resp)
+        }))
+    }
   })

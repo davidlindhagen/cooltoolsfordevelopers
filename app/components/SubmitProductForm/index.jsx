@@ -7,6 +7,7 @@ class SubmitProductForm extends Component {
     super(props)
     this.state = {
       productName: '',
+      link: '',
       shortDescription: '',
       longDescription: '',
       founderInfo: ''
@@ -27,13 +28,15 @@ class SubmitProductForm extends Component {
     if (this.state.productName && 
       this.state.shortDescription && 
       this.state.longDescription && 
-      this.state.founderInfo
+      this.state.founderInfo &&
+      this.state.link
     ){
       this.props.submitProduct(
         this.state.productName,
         this.state.shortDescription,
         this.state.longDescription,
-        this.state.founderInfo
+        this.state.founderInfo,
+        this.state.link
       )
     }
     else {
@@ -47,6 +50,8 @@ class SubmitProductForm extends Component {
         <h1>Submit Product For Developers</h1>
         <label>Product Name</label>
         <input value={this.state.productName} style={{display: 'block', width:'200px'}}onChange={this.onChange}name={"productName"}></input>
+        <label>Link</label>
+        <input value={this.state.link} style={{display: 'block', width:'200px'}}onChange={this.onChange}name={"link"}></input>
         <label>60 Character Max Description for Emails</label>
         <input value={this.state.shortDescription} style={{display: 'block', width: '300px'}}onChange={this.onChange}name={"shortDescription"}></input>
         <label>Full Description</label>

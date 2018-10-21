@@ -31,12 +31,14 @@ class SubmitEmailForm extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Add to email list</h1>
+      <div style={{display:'flex', height:'100vh', alignItems:'center', justifyContent: 'center'}}>
+      <div style={{textAlign:'center'}}>
+        <h1 style={{fontSize:'48px'}}>Add to email list</h1>
         <label>Email address:</label>
-        <input type="email" value={this.state.email} onChange={this.onChange} style={{display: 'block', width:'200px'}}name={"email"}></input>
+        <input style={{display:'block', width:'100%'}} type="email" value={this.state.email} onChange={this.onChange} name={"email"}></input>
         <br/>
         <button onClick={this.onSubmit}>Submit</button>
+      </div>
       </div>
     );
   }

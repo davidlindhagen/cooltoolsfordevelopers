@@ -1,14 +1,16 @@
 'use strict'
 
-const {STRING, TEXT} = require('sequelize')
-
+const {STRING, TEXT, INTEGER} = require('sequelize')
+console.log("yo")
 module.exports = db => db.define('products', {
   name: STRING,
+  link: TEXT,
   description: TEXT,
   shortDescription: TEXT,
   informationOnFounders: TEXT,
   pictureUrl: TEXT,
-  status: STRING
+  status: STRING,
+  batch: INTEGER
 })
 
 module.exports.associations = () => {}

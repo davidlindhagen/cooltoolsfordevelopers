@@ -2,10 +2,14 @@
 
 const db = require('APP/db')
 const Email = db.model('emails')
+var validator = require("email-validator")
 
   module.exports = require('express').Router()
   .post('/', (req, res, next) => {
-    if (req.body.email){
+    console.log("result", validator.validate(req.body.email))
+    console.log("good", validator.validate('jonah.livingston@queensu.ca'))
+    if (req.body.email && validator.validate(req.body.email)){
+      console.log("how here", validator.validate(req.body.email))
         Email.create({
         email: req.body.email
       })
@@ -15,7 +19,7 @@ const Email = db.model('emails')
       .catch(next)
     }
     else{
-      console.log("must not be empty")
+      res.send('bad email')
       res.end()
     }
   })
