@@ -110,19 +110,19 @@ console.log("product", Product)
     const productId = req.body.productId;
     const status = req.body.status;
     let batchNumber;
-    Batch.findOrCreate()
-    .then(btchNum)=>{
+    Batch.findOne()
+    .then((btchNum)=>{
       batchNumber = btchNum
       Product.update({
         status,
-        batch: batchNumber
+        batch: batchNumber.batchNumber
       }, {
         where: {
           id: productId
         }
       })
-        .then((resp => {
+        .then((resp) => {
           res.json(resp)
-        }))
-    }
+        })
+    })
   })
