@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 class Admin extends Component {
   constructor(props) {
     super(props)
+    this.publish = this.publish.bind(this)
   }
 
   componentDidMount(){
