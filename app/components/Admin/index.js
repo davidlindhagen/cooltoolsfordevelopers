@@ -13,6 +13,7 @@ class Admin extends Component {
   }
 
   renderInReview(){
+    console.log("this.props", this.props)
     return this.props.adminProducts.map((product)=>{
       if(product.status == "review"){
         return(
