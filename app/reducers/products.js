@@ -120,4 +120,4 @@ export const getPast = () => {
     }
 }
 
-export default reducerrec
+export default reducer
